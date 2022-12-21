@@ -38,6 +38,7 @@ class _CountryTimeScreenState extends State<CountryTimeScreen> {
                       children: [
                         ListTile(
                           title: Text(item.country.toString()),
+                          subtitle: Text(item.time!),
                         ),
                         Divider(), //
                       ],

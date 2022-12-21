@@ -3,8 +3,7 @@ library plugin_demo;
 import 'package:flutter/foundation.dart';
 import 'package:intl/intl.dart';
 import 'package:plugin_demo/biz_date_time.dart';
-import 'package:timezone/data/latest.dart' as tz;
-import 'package:timezone/timezone.dart' as tz;
+
 import 'biz_country_time.dart';
 
 class MyUtils {
@@ -55,31 +54,39 @@ class MyUtils {
   }
 
   List<BizCountryTime> getCountryList() {
-    tz.initializeTimeZones();
-    final DateTime now = DateTime.now();
-
-    final pacificTimeZone = tz.getLocation('America/Los_Angeles');
-
-    tz.TZDateTime.from(now, pacificTimeZone);
-
     List<BizCountryTime> list = [];
-    list.add(BizCountryTime(null, "India", "+5:30", null, null));
+    List<BizCountryTime> finalList = [];
     list.add(BizCountryTime(
-        null, "USA - Washington", "GMT-8", "13-03 02:00", "06-11 02:00"));
+        null, "India - New Delhi", "GMT+5:30", null, null, null));
+    list.add(BizCountryTime(null, "USA - Washington", "GMT-8:00", "13-03 02:00",
+        "06-11 02:00", null));
     list.add(BizCountryTime(
-        null, "UK - London", "GMT", "13-03 02:00", "06-11 02:00"));
-    list.add(BizCountryTime(null, "AUS - Canberra / Sydney", "GMT+11",
-        "13-03 02:00", "06-11 02:00"));
-    list.add(BizCountryTime(
-        null, "Germany - Berlin", "GMT+1", "13-03 02:00", "06-11 02:00"));
+        null, "UK - London", "GMT", "13-03 02:00", "06-11 02:00", null));
+    list.add(BizCountryTime(null, "AUS - Canberra / Sydney", "GMT+11:00",
+        "13-03 02:00", "06-11 02:00", null));
+    list.add(BizCountryTime(null, "Germany - Berlin", "GMT+1:00", "13-03 02:00",
+        "06-11 02:00", null));
 
     for (var element in list) {
-      BizCountryTime countryTime = element;
-      DateTime now = DateTime.now();
-      Duration timeZone = now.timeZoneOffset;
+      DateTime now = DateTime.now().toUtc();
 
-      String s = "Jinali";
+      String gmt = element.gmt!;
+      if (gmt.contains("+") || gmt.contains("-")) {
+        List<String> offset = gmt.substring(4).split(":");
+
+        if (gmt.contains("+")) {
+          now.add(Duration(
+              hours: int.parse(offset[0]), minutes: int.parse(offset[1])));
+        } else {
+          now.subtract(Duration(
+              hours: int.parse(offset[0]), minutes: int.parse(offset[1])));
+        }
+      }
+      // Duration timeZone = now.timeZoneOffset;
+
+      element.time = DateFormat("dd MMM, yyyy hh:mm:ss a").format(now);
+      finalList.add(element);
     }
-    return list;
+    return finalList;
   }
 }
