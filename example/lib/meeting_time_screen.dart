@@ -1,7 +1,7 @@
+import 'package:biz_date_time/biz_country_time.dart';
+import 'package:biz_date_time/biz_date_time_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
-import 'package:plugin_demo/biz_country_time.dart';
-import 'package:plugin_demo/biz_date_time_utils.dart';
 
 class CountryTimeScreen extends StatefulWidget {
   const CountryTimeScreen({Key? key}) : super(key: key);

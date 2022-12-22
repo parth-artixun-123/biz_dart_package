@@ -1,7 +1,7 @@
+import 'package:biz_date_time/biz_date_time.dart';
+import 'package:biz_date_time/biz_date_time_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:plugin_demo/biz_date_time.dart';
-import 'package:plugin_demo/biz_date_time_utils.dart';
 
 class DateFormatterScreen extends StatefulWidget {
   const DateFormatterScreen({Key? key}) : super(key: key);

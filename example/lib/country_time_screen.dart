@@ -1,8 +1,8 @@
 import 'dart:async';
 
+import 'package:biz_date_time/biz_country_time.dart';
+import 'package:biz_date_time/biz_date_time_utils.dart';
 import 'package:flutter/material.dart';
-import 'package:plugin_demo/biz_country_time.dart';
-import 'package:plugin_demo/biz_date_time_utils.dart';
 
 class MeetingTimeScreen extends StatefulWidget {
   const MeetingTimeScreen({Key? key}) : super(key: key);

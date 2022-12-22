@@ -2,9 +2,9 @@ library plugin_demo;
 
 import 'package:flutter/foundation.dart';
 import 'package:intl/intl.dart';
-import 'package:plugin_demo/biz_date_time.dart';
 
 import 'biz_country_time.dart';
+import 'biz_date_time.dart';
 
 class BizDateTimeUtils {
   var dateFormats = [
