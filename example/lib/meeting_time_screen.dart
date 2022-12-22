@@ -1,17 +1,16 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:plugin_demo/biz_country_time.dart';
 import 'package:plugin_demo/biz_date_time_utils.dart';
 
-class MeetingTimeScreen extends StatefulWidget {
-  const MeetingTimeScreen({Key? key}) : super(key: key);
+class CountryTimeScreen extends StatefulWidget {
+  const CountryTimeScreen({Key? key}) : super(key: key);
 
   @override
-  State<MeetingTimeScreen> createState() => _MeetingTimeScreen();
+  State<CountryTimeScreen> createState() => _CountryTimeScreenState();
 }
 
-class _MeetingTimeScreen extends State<MeetingTimeScreen> {
+class _CountryTimeScreenState extends State<CountryTimeScreen> {
   List<BizCountryTime> list = [];
   BizDateTimeUtils myUtils = BizDateTimeUtils();
 
@@ -19,22 +18,31 @@ class _MeetingTimeScreen extends State<MeetingTimeScreen> {
   void initState() {
     list = myUtils.getCountryTimeList();
     setState(() {});
-    getCountryList();
   }
 
-  void getCountryList()async{
-    var duration = const Duration(seconds: 1);
-    Timer(duration, () async {
-      list = myUtils.getCountryTimeList();
-      setState(() {});
-      getCountryList();
-    });
-  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text("DayLight Time Saving"),
+          title: const Text("Meeting Time"),
+          actions: [
+            IconButton(
+                onPressed: () {
+                  DatePicker.showDateTimePicker(
+                    context,
+                    showTitleActions: true,
+                    onChanged: (date) {},
+                    onConfirm: (date) {
+                      list = myUtils.getCountryTimeList(dateAndTime: date);
+                      setState(() {});
+
+                      print('confirm $date');
+                    },
+                    currentTime: DateTime.now(),
+                  );
+                },
+                icon: const Icon(Icons.calendar_month))
+          ],
         ),
         body: Container(
           margin: const EdgeInsets.all(16),

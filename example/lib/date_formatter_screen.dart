@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:plugin_demo/biz_date_time.dart';
-import 'package:plugin_demo/my_utils.dart';
+import 'package:plugin_demo/biz_date_time_utils.dart';
 
 class DateFormatterScreen extends StatefulWidget {
   const DateFormatterScreen({Key? key}) : super(key: key);
@@ -35,7 +35,7 @@ class _DateFormatterScreenState extends State<DateFormatterScreen> {
   TextEditingController dateController = TextEditingController();
   TextEditingController formatController = TextEditingController();
   String selectedFormat = dateFormats.first;
-  MyUtils utils = MyUtils();
+  BizDateTimeUtils utils = BizDateTimeUtils();
   BizDateTime? bizDateTime;
 
   @override

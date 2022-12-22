@@ -11,29 +11,32 @@ and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/developing-packages). 
 -->
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
-
+This package is useful for easily date formatting and DayLight saving time.
 ## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+Provides a current time of different countries based on the user's phone locale with "Daylight saving time".
+Calculation of the meeting date and time based on the local meeting time chosen by the user.
 
 ## Getting started
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
-
 ## Usage
-
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
-
+Format Date
 ```dart
-const like = 'sample';
+BizDateTimeUtils myUtils = BizDateTimeUtils();
+BizDateTime bizDateTime = utils.formatMyDate("22-12-2022", "dd MMM, yyyy");
+
+```
+
+Get current time of different countries
+```dart
+List<BizCountryTime> list = myUtils.getCountryTimeList();
+```
+
+Calculation of the meeting date and time
+```dart
+List<BizCountryTime> list = myUtils.getCountryTimeList(selectedDateTime);
 ```
 
 ## Additional information
 
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.
+This plugin is developed for the easy date formatting purpose.

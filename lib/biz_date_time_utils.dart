@@ -6,7 +6,7 @@ import 'package:plugin_demo/biz_date_time.dart';
 
 import 'biz_country_time.dart';
 
-class MyUtils {
+class BizDateTimeUtils {
   var dateFormats = [
     "MM-dd-yyyy",
     "dd-MM-yyyy",
@@ -53,36 +53,56 @@ class MyUtils {
     return dateTime;
   }
 
-  List<BizCountryTime> getCountryList() {
+  //
+
+  List<BizCountryTime> getCountryTimeList({DateTime? dateAndTime}) {
     List<BizCountryTime> list = [];
     List<BizCountryTime> finalList = [];
+    list.add(BizCountryTime("India - New Delhi", "GMT+5:30", null, null, null));
     list.add(BizCountryTime(
-        null, "India - New Delhi", "GMT+5:30", null, null, null));
-    list.add(BizCountryTime(null, "USA - Washington", "GMT-8:00", "13-03 02:00",
-        "06-11 02:00", null));
+        "USA - Washington", "GMT-8:00", "12-03 02:00", "05-11 02:00", null));
     list.add(BizCountryTime(
-        null, "UK - London", "GMT", "13-03 02:00", "06-11 02:00", null));
-    list.add(BizCountryTime(null, "AUS - Canberra / Sydney", "GMT+11:00",
-        "13-03 02:00", "06-11 02:00", null));
-    list.add(BizCountryTime(null, "Germany - Berlin", "GMT+1:00", "13-03 02:00",
-        "06-11 02:00", null));
+        "UK - London", "GMT", "26-03 02:00", "29-10 02:00", null));
+    list.add(BizCountryTime("AUS - Canberra / Sydney", "GMT+11:00",
+        "01-10 02:00", "02-04 02:00", null));
+    list.add(BizCountryTime(
+        "Germany - Berlin", "GMT+1:00", "27-03 02:00", "30-10 02:00", null));
+    list.add(BizCountryTime(
+        "New Mexico", "GMT-7:00", "27-03 02:00", "30-10 02:00", null));
 
     for (var element in list) {
       DateTime now = DateTime.now().toUtc();
+      if (dateAndTime != null) {
+        now = dateAndTime.toUtc();
+      }
 
       String gmt = element.gmt!;
       if (gmt.contains("+") || gmt.contains("-")) {
         List<String> offset = gmt.substring(4).split(":");
 
         if (gmt.contains("+")) {
-          now.add(Duration(
+          now = now.add(Duration(
               hours: int.parse(offset[0]), minutes: int.parse(offset[1])));
         } else {
-          now.subtract(Duration(
+          now = now.subtract(Duration(
               hours: int.parse(offset[0]), minutes: int.parse(offset[1])));
         }
+
+        if (element.dstStart != null) {
+          DateTime today = DateTime.now();
+          String tempDstStart = "${element.dstStart} ${today.year}";
+          String tempDstEnd = "${element.dstEnd} ${today.year}";
+
+          DateTime dstStart =
+              DateFormat("dd-MM HH:mm yyyy").parse(tempDstStart);
+
+          DateTime dstEnd = DateFormat("dd-MM HH:mm yyyy").parse(tempDstEnd);
+
+          if (today.isAfter(dstStart) && today.isBefore(dstEnd)) {
+            now = now.add(const Duration(hours: 1));
+          }
+        }
       }
-      // Duration timeZone = now.timeZoneOffset;
 
       element.time = DateFormat("dd MMM, yyyy hh:mm:ss a").format(now);
       finalList.add(element);
