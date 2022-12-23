@@ -24,9 +24,11 @@ Calculation of the meeting date and time based on the local meeting time chosen 
 
 Integrate plugin in pubspec.yaml
 
+```yaml
 biz_date_time:
 git:
 url: https://github.com/ms-biztech/biz_dart_package
+```
 
 Format Date
 ```dart
